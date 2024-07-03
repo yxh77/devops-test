@@ -33,5 +33,11 @@ RUN apt-get update && apt-get install -y \
 COPY switch-php-version.sh /usr/local/bin/switch-php-version.sh
 RUN chmod +x /usr/local/bin/switch-php-version.sh
 
+# 创建index.php文件
+RUN echo "<?php phpinfo(); ?>" > /var/www/html/index.php
+
+# 暴露80端口
+EXPOSE 80
+
 # 默认开启 Apache 服务
 CMD ["/usr/sbin/apache2ctl", "-D", "FOREGROUND"]
