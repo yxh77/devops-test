@@ -6,6 +6,17 @@ LABEL maintainer="yourname@example.com"
 
 # 更新包列表并安装所需的软件包
 RUN apt-get update && apt-get install -y \
+    lsb-release \
+    apt-transport-https \
+    ca-certificates \
+    wget
+
+# 添加PHP源
+RUN wget -q https://packages.sury.org/php/apt.gpg -O- | apt-key add - \
+    && echo "deb https://packages.sury.org/php/ $(lsb_release -sc) main" | tee /etc/apt/sources.list.d/php.list
+
+# 更新包列表并安装所需的软件包
+RUN apt-get update && apt-get install -y \
     apache2 \
     php7.4 \
     php7.4-cli \
