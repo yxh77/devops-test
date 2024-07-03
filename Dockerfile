@@ -1,15 +1,25 @@
-FROM node:20
+# 使用基础镜像
+FROM debian:latest
 
-WORKDIR /app
+# 设置维护者信息
+LABEL maintainer="yourname@example.com"
 
-COPY package*.json ./
+# 更新包列表并安装所需的软件包
+RUN apt-get update && apt-get install -y \
+    apache2 \
+    php7.4 \
+    php7.4-cli \
+    php7.4-mysql \
+    php8.0 \
+    php8.0-cli \
+    php8.0-mysql \
+    libapache2-mod-php7.4 \
+    libapache2-mod-php8.0 \
+    && apt-get clean
 
-RUN npm install express --save
+# 创建切换PHP版本的脚本
+COPY switch-php-version.sh /usr/local/bin/switch-php-version.sh
+RUN chmod +x /usr/local/bin/switch-php-version.sh
 
-COPY . .
-
-ENV PORT=8080
-
-EXPOSE 8080
-
-CMD ["node", "."]
+# 默认开启Apache服务
+CMD ["/usr/sbin/apache2ctl", "-D", "FOREGROUND"]
