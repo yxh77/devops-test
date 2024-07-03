@@ -13,8 +13,8 @@ RUN apt-get update && apt-get install -y \
     && apt-get clean
 
 # 添加 PHP 源
-RUN wget -q https://packages.sury.org/php/apt.gpg -O- | apt-key add - \
-    && echo "deb https://packages.sury.org/php/ $(lsb_release -sc) main" > /etc/apt/sources.list.d/php.list
+RUN wget -q https://packages.sury.org/php/apt.gpg -O /usr/share/keyrings/php-archive-keyring.gpg \
+    && echo "deb [signed-by=/usr/share/keyrings/php-archive-keyring.gpg] https://packages.sury.org/php/ $(lsb_release -sc) main" > /etc/apt/sources.list.d/php.list
 
 # 更新包列表并安装所需的 PHP 版本和 Apache
 RUN apt-get update && apt-get install -y \
