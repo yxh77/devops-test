@@ -28,7 +28,6 @@ RUN apt-get update && apt-get install -y \
     libapache2-mod-php7.4 \
     libapache2-mod-php8.0 \
     && apt-get clean
-
     
 # 创建切换 PHP 版本的脚本
 COPY switch-php-version.sh /usr/local/bin/switch-php-version.sh
