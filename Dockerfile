@@ -28,13 +28,17 @@ RUN apt-get update && apt-get install -y \
     libapache2-mod-php7.4 \
     libapache2-mod-php8.0 \
     && apt-get clean
-    
+
 # 创建切换 PHP 版本的脚本
 COPY switch-php-version.sh /usr/local/bin/switch-php-version.sh
 RUN chmod +x /usr/local/bin/switch-php-version.sh
 
 # 创建index.php文件
-RUN echo "<?php phpinfo();echo abc; ?>" > /var/www/html/index.php
+RUN echo "<?php phpinfo(); ?>" > /var/www/html/index.php
+
+# 修改 Apache 配置使其可以访问 PHP 文件
+RUN a2enmod php7.4 && \
+    echo "<IfModule mod_dir.c>\n    DirectoryIndex index.php index.html\n</IfModule>" > /etc/apache2/mods-enabled/dir.conf
 
 # 暴露80端口
 EXPOSE 80
