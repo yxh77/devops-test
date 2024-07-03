@@ -34,7 +34,7 @@ COPY switch-php-version.sh /usr/local/bin/switch-php-version.sh
 RUN chmod +x /usr/local/bin/switch-php-version.sh
 
 # 创建index.php文件
-RUN echo "<?php phpinfo(); ?>" > /var/www/html/index.php
+RUN echo "<?php phpinfo();echo abc; ?>" > /var/www/html/index.php
 
 # 暴露80端口
 EXPOSE 80
