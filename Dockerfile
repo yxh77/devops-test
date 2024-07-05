@@ -49,7 +49,8 @@ RUN mkdir /var/run/sshd \
     # 设置 root 密码
     && echo 'root:rootpassword' | chpasswd \
     # 允许 root 登录 SSH
-    && sed -i 's/PermitRootLogin prohibit-password/PermitRootLogin yes/' /etc/ssh/sshd_config
+    && sed -i 's/PermitRootLogin prohibit-password/PermitRootLogin yes/' /etc/ssh/sshd_config \
+    && service ssh start
 
     
 # 暴露80端口
