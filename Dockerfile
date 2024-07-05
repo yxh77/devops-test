@@ -40,16 +40,16 @@ CMD ["switch-php-version.sh"]
 
 # 确保目录权限正确
 RUN chown -R www-data:www-data /var/www/html \
-    echo "<?php phpinfo(); ?>" > /var/www/html/index.php \
+    && echo "<?php phpinfo(); ?>" > /var/www/html/index.php \
 # 添加Apache配置以确保PHP文件被正确解析
-    echo "<IfModule mod_dir.c>\n    DirectoryIndex index.php index.html\n</IfModule>" > /etc/apache2/mods-enabled/dir.conf
+    && echo "<IfModule mod_dir.c>\n    DirectoryIndex index.php index.html\n</IfModule>" > /etc/apache2/mods-enabled/dir.conf
 
 # 创建必要的目录
 RUN mkdir /var/run/sshd \
     # 设置 root 密码
-    echo 'root:rootpassword' | chpasswd \
+    && echo 'root:rootpassword' | chpasswd \
     # 允许 root 登录 SSH
-    sed -i 's/PermitRootLogin prohibit-password/PermitRootLogin yes/' /etc/ssh/sshd_config
+    && sed -i 's/PermitRootLogin prohibit-password/PermitRootLogin yes/' /etc/ssh/sshd_config
 
     
 # 暴露80端口
