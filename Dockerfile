@@ -53,7 +53,7 @@ RUN mkdir /var/run/sshd \
 
     
 # 暴露80端口
-EXPOSE 80
+EXPOSE 80 22
 
 # 默认开启 Apache 服务
 CMD ["/usr/sbin/apache2ctl", "-D", "FOREGROUND"]

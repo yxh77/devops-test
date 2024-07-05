@@ -4,6 +4,7 @@ services:
     image: yxh77/test:main
     ports:
       - "80:80"
+      - "20001:22"
     depends_on:
       - db
     labels:
