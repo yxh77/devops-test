@@ -25,3 +25,6 @@ fi
 service apache2 restart
 
 echo "Switched to PHP $PHP_VERSION"
+
+# 使用示例
+## ./switch-php-version.sh [$PHP_VERSION]
