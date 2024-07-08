@@ -36,7 +36,7 @@ RUN a2enmod php7.4 && a2enmod php8.0
 # 创建切换 PHP 版本的脚本
 COPY switch-php-version.sh /usr/local/bin/switch-php-version.sh
 RUN chmod +x /usr/local/bin/switch-php-version.sh
-CMD ["switch-php-version.sh"]
+
 
 # 确保目录权限正确
 RUN chown -R www-data:www-data /var/www/html \
@@ -49,12 +49,10 @@ RUN mkdir /var/run/sshd \
     # 设置 root 密码
     && echo 'root:rootpassword' | chpasswd \
     # 允许 root 登录 SSH
-    && sed -i 's/PermitRootLogin prohibit-password/PermitRootLogin yes/' /etc/ssh/sshd_config \
-    && service ssh start
-
+    && sed -i 's/PermitRootLogin prohibit-password/PermitRootLogin yes/' /etc/ssh/sshd_config
     
 # 暴露80端口
 EXPOSE 80 22
 
 # 默认开启 Apache 服务
-CMD ["/usr/sbin/apache2ctl", "-D", "FOREGROUND"]
+CMD ["switch-php-version.sh"]

@@ -24,6 +24,9 @@ fi
 # 重启Apache服务
 service apache2 restart
 
+# 重启 SSH 服务
+service ssh restart
+
 echo "Switched to PHP $PHP_VERSION"
 
 # 使用示例
